@@ -1,0 +1,787 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Design e Padrão Técnico Unificado – Live Consultoria (V3)</title>
+    <!-- Fontes (Padrão V3) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@,400;1,700&family=Poppins:wght@;400;600;700&display=swap" rel="stylesheet">
+    <!-- Script de detecção de JS para animação segura -->
+    <script>document.documentElement.className = 'js';</script>
+    <style>
+        /* --- 1. Núcleo da Identidade Visual (Tokens) --- */
+        :root {
+            /* Paleta Principal */
+            --primary-bg: #06192a; /* Azul Petróleo - Fundo principal */
+            --card-bg: #0A243D; /* Azul Escuro - Fundo de cards */
+            --accent-color: #00e800; /* Verde Vibrante - Destaques, links, títulos */
+
+            /* Textos */
+            --text-primary: #ffffff; /* Branco - Textos principais */
+            --text-muted: #cccccc; /* Cinza Claro */
+            --text-subtle: #a0a0a0; /* Cinza - Textos secundários e parágrafos */
+
+            /* Bordas e Efeitos */
+            --border-color: rgba(255, 255, 255, 0.1);
+            --accent-glow: 0 0 8px rgba(0, 232, 0, 0.7); /* Sombra para o verde vibrante */
+
+            /* Famílias de Fonte */
+            --font-primary: 'Poppins', sans-serif;
+            --font-secondary: 'Merriweather', serif;
+
+            /* Tamanhos de Fonte (Mobile-First) */
+            --font-size-base: 1.1rem;
+            --font-size-h3: 1.5rem;
+            --font-size-h2: clamp(2rem, 4vw, 2.5rem);
+            --font-size-h1: clamp(2.5rem, 5vw, 3rem);
+
+            /* Escala de Espaçamento */
+            --space-sm: 1rem; /* 16px */
+            --space-md: 2rem; /* 32px */
+            --space-lg: 4rem; /* 64px */
+            --space-xl: 6rem; /* 96px */
+        }
+
+        /* --- 2. Estrutura e Layout (Padrão V3) --- */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html, body {
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-primary);
+            color: var(--text-primary);
+            background-color: var(--primary-bg);
+            background-image: url('https://www.transparenttextures.com/patterns/cubes.png');
+            background-attachment: fixed;
+            line-height: 1.6;
+        }
+
+        /* --- 3. Ativos da Marca (Logos) --- */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: var(--space-sm) var(--space-md);
+            background-color: rgba(6, 25, 42, 0.8);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border-color);
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header-logo {
+            height: 48px;
+        }
+
+        .header-title {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--text-muted);
+        }
+
+        main {
+            padding-top: calc(48px + (var(--space-sm) * 2));
+            padding-bottom: var(--space-lg);
+        }
+
+        footer {
+            padding: var(--space-lg) var(--space-md);
+            text-align: center;
+            background-color: #000;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .footer-logo {
+            height: 96px;
+            margin-bottom: var(--space-sm);
+        }
+
+        footer p {
+            color: var(--text-subtle);
+            font-size: 0.9rem;
+        }
+
+        /* --- 4. Componentes (Card Padrão V3) --- */
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 var(--space-md);
+        }
+
+        section {
+            padding-top: var(--space-lg);
+        }
+
+        .card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: var(--space-md);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .card:focus-visible {
+            outline: 3px solid var(--accent-color);
+            outline-offset: 4px;
+        }
+
+        /* --- 5. Animações (Padrão V3) --- */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .fade-in {
+            opacity: 0;
+        }
+
+        .fade-in.is-visible {
+            animation: fadeIn 0.8s ease-out forwards;
+        }
+
+        /* Garantia de visibilidade */
+        .fade-in {
+            opacity: 1;
+        }
+
+        /* --- 6. Estilos de Conteúdo Específico --- */
+        .hero-section {
+            text-align: center;
+            padding-bottom: 0;
+        }
+
+        h1 {
+            font-size: var(--font-size-h1);
+            color: var(--text-primary);
+            font-weight: 700;
+            margin-bottom: var(--space-sm);
+        }
+
+        h2 {
+            font-size: var(--font-size-h2);
+            color: var(--text-primary);
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        h3 {
+            font-size: var(--font-size-h3);
+            color: var(--text-primary);
+            font-weight: 600;
+            margin-bottom: var(--space-sm);
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--border-color);
+        }
+
+        h4 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+            margin-top: var(--space-md);
+        }
+
+        p {
+            color: var(--text-subtle);
+            margin-bottom: 1rem;
+        }
+
+        /* Tabela */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            table-layout: fixed;
+        }
+
+        th, td {
+            border: 1px solid var(--border-color);
+            padding: 0.75rem 1rem;
+            text-align: left;
+            color: var(--text-subtle);
+            word-wrap: break-word;
+            vertical-align: top;
+        }
+
+        th {
+            background-color: rgba(0, 232, 0, 0.1);
+            color: var(--accent-color);
+            font-weight: 600;
+        }
+
+        tbody tr:nth-child(odd) {
+            background-color: rgba(0, 0, 0, 0.1);
+        }
+
+        /* Código */
+        pre {
+            background-color: var(--primary-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 1rem;
+            overflow-x: auto;
+            color: var(--text-muted);
+            margin: var(--space-md) 0;
+        }
+
+        code {
+            font-family: monospace;
+            font-size: 0.9rem;
+        }
+
+        @media (min-width: 768px) {
+            .container {
+                max-width: 1200px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Cabeçalho (Padrão V3) -->
+    <header>
+        <img src="https://raw.githubusercontent.com/Clebito2/ConsultoriaLive/main/Logo%20live%20oficial-21.png" alt="Logo Principal da Live Consultoria" class="header-logo" loading="lazy" onerror="this.onerror=null; this.src='https://placehold.co/150x48/06192a/a0a0a0?text=Live+Logo'">
+        <span class="header-title">Live Consultoria</span>
+    </header>
+
+    <main>
+        <div class="container">
+            <!-- Seção Hero -->
+            <section class="hero-section fade-in">
+                <h1>Sistema de Design e Padrão Técnico Unificado – Live Consultoria (V3)</h1>
+                <p>Este documento é a fonte de verdade para a criação de qualquer página web da Live Consultoria, garantindo consistência, performance, acessibilidade e aderência à identidade da marca.</p>
+            </section>
+
+            <!-- Seção 1: Núcleo da Identidade Visual -->
+            <section id="nucleo-identidade" class="fade-in">
+                <h2>1. Núcleo da Identidade Visual (Brand Core)</h2>
+                <div class="card">
+                    <p>A base de qualquer projeto é definida pelos seguintes tokens (variáveis CSS). A aplicação através destes tokens é obrigatória.</p>
+                    <h3>1.1. Paleta de Cores (Tokens)</h3>
+                    <pre><code>CSS
+
+:root {  
+  /* Paleta Principal */  
+  --primary-bg: #06192a;      /* Azul Petróleo - Fundo principal */  
+  --card-bg: #0A243D;         /* Azul Escuro - Fundo de cards */  
+  --accent-color: #00e800;     /* Verde Vibrante - Destaques, links, títulos */
+
+  /* Textos */  
+  --text-primary: #ffffff;     /* Branco - Textos principais */  
+  --text-muted: #cccccc;       /* Cinza Claro */  
+  --text-subtle: #a0a0a0;       /* Cinza - Textos secundários e parágrafos */
+
+  /* Bordas e Efeitos */  
+  --border-color: rgba(255, 255, 255, 0.1);  
+  --accent-glow: 0 0 8px rgba(0, 232, 0, 0.7); /* Sombra para o verde vibrante */  
+}</code></pre>
+
+                    <h3>1.2. Tipografia (Tokens)</h3>
+                    <p>As fontes devem ser importadas no &lt;head&gt; do HTML para melhor performance.</p>
+                    <pre><code>HTML
+
+&lt;link rel="preconnect" href="https://fonts.googleapis.com"&gt;  
+&lt;link rel="preconnect" href="https://fonts.gstatic.com" crossorigin&gt;  
+&lt;link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@,400;1,700&amp;family=Poppins:wght@;400;600;700&amp;display=swap" rel="stylesheet"&gt;</code></pre>
+                    <pre><code>CSS
+
+:root {  
+  /* Famílias de Fonte */  
+  --font-primary: 'Poppins', sans-serif;  
+  --font-secondary: 'Merriweather', serif;
+
+  /* Tamanhos de Fonte (Mobile-First) */  
+  --font-size-base: 1.1rem;  
+  --font-size-h3: 1.5rem;  
+  --font-size-h2: clamp(2rem, 4vw, 2.5rem);  
+  --font-size-h1: clamp(2.5rem, 5vw, 3rem);  
+}</code></pre>
+                    <ul>
+                        <li><strong>Uso:</strong></li>
+                        <li>var(--font-primary): Para todos os textos gerais, títulos e elementos de interface.</li>
+                        <li>var(--font-secondary): <strong>Exclusivamente</strong> para o texto do bloco "Diagnóstico Estratégico" em propostas comerciais.</li>
+                    </ul>
+
+                    <h3>1.3. Espaçamento (Tokens)</h3>
+                    <p>Use a escala de espaçamento para todas as margens e paddings.</p>
+                    <pre><code>CSS
+
+:root {  
+  /* Escala de Espaçamento */  
+  --space-sm: 1rem;   /* 16px */  
+  --space-md: 2rem;   /* 32px */  
+  --space-lg: 4rem;   /* 64px */  
+  --space-xl: 6rem;   /* 96px */  
+}</code></pre>
+                </div>
+            </section>
+
+            <!-- Seção 2: Ativos da Marca -->
+            <section id="ativos-marca" class="fade-in">
+                <h2>2. Ativos da Marca (Asset Library)</h2>
+                <div class="card">
+                    <p><strong>Atenção:</strong> Para que as imagens do GitHub funcionem, o link deve apontar para raw.githubusercontent.com. Os links abaixo já estão no formato correto.</p>
+                    <h3>2.1. Logos</h3>
+                    <ul>
+                        <li><strong>Logo Principal (Padrão para fundo escuro):</strong></li>
+                        <li><strong>Uso:</strong> Cabeçalho e rodapé de páginas institucionais.</li>
+                        <li><strong>URL:</strong> https://raw.githubusercontent.com/Clebito2/ConsultoriaLive/main/Logo%20live%20oficial-21.png</li>
+                        <li><strong>Logo Alternativo:</strong></li>
+                        <li><strong>Uso:</strong> Apenas se a versão primária não puder ser aplicada.</li>
+                        <li><strong>URL:</strong> https://raw.githubusercontent.com/Clebito2/Consultorias/main/Logo%20live%20oficial-17.png</li>
+                        <li><strong>Logos Específicos para Propostas Comerciais:</strong></li>
+                        <li><strong>Uso (Cabeçalho):</strong> Logo para o cabeçalho fixo da página de proposta.</li>
+                        <li><strong>URL:</strong> https://raw.githubusercontent.com/Clebito2/layout/main/Logo%20live%20oficial-36.png</li>
+                        <li><strong>Uso (Rodapé):</strong> Versão positiva para o rodapé escuro da página de proposta.</li>
+                        <li><strong>URL:</strong> https://raw.githubusercontent.com/Clebito2/layout/main/Logo%20live%20oficial-34.png</li>
+                    </ul>
+
+                    <h3>2.2. Textura de Fundo</h3>
+                    <p>Obrigatória em todas as páginas. O fundo deve ser fixo (fixed) para criar o efeito de paralaxe durante a rolagem.</p>
+                    <ul>
+                        <li><strong>URL:</strong> https://www.transparenttextures.com/patterns/cubes.png</li>
+                        <li><strong>Implementação CSS:</strong></li>
+                    </ul>
+                    <pre><code>CSS
+
+body {  
+  background-color: var(--primary-bg); /* Fallback */  
+  background-image: url('https://www.transparenttextures.com/patterns/cubes.png');  
+  background-attachment: fixed;  
+}</code></pre>
+
+                    <h3>2.3. Logos de Clientes (Página Institucional)</h3>
+                    <p>Lista de logos aprovados para a seção de clientes.</p>
+                    <ul>
+                        <li><strong>Vox2you:</strong> https://raw.githubusercontent.com/Clebito2/ApresentacaoConsultoria/main/LOGO%20VOX.png</li>
+                        <li><strong>Okamoto:</strong> https://raw.githubusercontent.com/Clebito2/ApresentacaoConsultoria/main/Logo%20okamoto.png</li>
+                        <li><strong>Casa Dibs:</strong> https://raw.githubusercontent.com/Clebito2/ApresentacaoConsultoria/main/Logo%20Casa%20dibs.png</li>
+                        <li><strong>TCE-RO:</strong> https://raw.githubusercontent.com/Clebito2/ApresentacaoConsultoria/main/Logo%20TCE.png</li>
+                        <li><strong>TecnolT:</strong> https://raw.githubusercontent.com/Clebito2/ApresentacaoConsultoria/main/Tecno%20IT.png?raw=true</li>
+                        <li>E outros listados no guia original.</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Seção 3: Estrutura e Layout -->
+            <section id="estrutura-layout" class="fade-in">
+                <h2>3. Estrutura e Layout</h2>
+                <div class="card">
+                    <ul>
+                        <li><strong>Abordagem Mobile-First:</strong> Estilos devem ser escritos para telas pequenas primeiro e aprimorados com media queries (min-width).</li>
+                        <li><strong>HTML Semântico:</strong> Utilize &lt;header&gt;, &lt;main&gt;, &lt;footer&gt;, &lt;section&gt; e &lt;h1&gt;.</li>
+                        <li><strong>Cabeçalho (&lt;header&gt;):</strong> Fixo (position: fixed), com fundo semitransparente e backdrop-filter: blur(10px).</li>
+                        <li><strong>Rodapé (&lt;footer&gt;):</strong> Deve conter o logo apropriado, slogan e informações de contato.</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Seção 4: Componentes -->
+            <section id="componentes" class="fade-in">
+                <h2>4. Componentes</h2>
+                <div class="card">
+                    <h3>4.1. Card Padrão (.card)</h3>
+                    <p><strong>Estilo:</strong> Fundo var(--card-bg), borda 1px solid var(--border-color), padding: var(--space-md), cantos arredondados (border-radius: 12px).</p>
+                    <p><strong>Estados de Interação:</strong></p>
+                    <ul>
+                        <li>:hover: transform: translateY(-10px); box-shadow: ...; (eleva o card).</li>
+                        <li>:focus-visible: outline: 3px solid var(--accent-color); (essencial para acessibilidade).</li>
+                    </ul>
+
+                    <h3>4.2. Variações de Componentes</h3>
+                    <ul>
+                        <li><strong>Seção de Clientes (Página Institucional):</strong></li>
+                        <li>Um grid flexível (.clientes-grid) com as imagens dos logos (.cliente-logo).</li>
+                        <li><strong>Estilo:</strong> Padrão com filter: grayscale(100%), que é removido no :hover.</li>
+                        <li><strong>Card de Diagnóstico (Proposta Comercial):</strong></li>
+                        <li>Uma variação do .card que possui uma borda esquerda verde vibrante (border-left: 3px solid var(--accent-color)) para destaque.</li>
+                        <li><strong>Linha do Tempo Vertical (Proposta Comercial):</strong></li>
+                        <li>Componente para apresentar as fases do projeto.</li>
+                        <li><strong>Estrutura:</strong> Uma linha vertical (::after) na cor var(--accent-color). Os itens são distribuídos alternadamente à esquerda e à direita.</li>
+                        <li><strong>Animação:</strong> Cada item desliza para dentro a partir da lateral (slide-in) com um pequeno atraso sequencial.</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Seção 5: Animações e Performance -->
+            <section id="animacoes-performance" class="fade-in">
+                <h2>5. Animações e Performance</h2>
+                <div class="card">
+                    <h3>Animação de Entrada (.fade-in):</h3>
+                    <p><strong>Efeito:</strong> Os elementos surgem suavemente de baixo para cima com um fade.</p>
+                    <p><strong>Implementação:</strong> A animação deve ser ativada via <strong>IntersectionObserver</strong> para garantir que ela só ocorra quando a seção estiver visível, otimizando a performance.</p>
+                    <pre><code>CSS
+
+ @keyframes fadeIn {  
+  from { opacity: 0; transform: translateY(20px); }  
+  to { opacity: 1; transform: translateY(0); }  
+}  
+.fade-in {  
+  animation: fadeIn 0.8s ease-out forwards;  
+}</code></pre>
+                    <p><strong>Otimização de Imagens:</strong> Todas as imagens devem usar o atributo loading="lazy" e, se possível, ser servidas no formato WebP.</p>
+                </div>
+            </section>
+
+            <!-- Seção 6: Padrões de Acessibilidade -->
+            <section id="acessibilidade" class="fade-in">
+                <h2>6. Padrões de Acessibilidade (a11y)</h2>
+                <div class="card">
+                    <p>A aplicação destas regras é <strong>obrigatória</strong>.</p>
+                    <ul>
+                        <li><strong>Contraste:</strong> Todas as combinações de texto e fundo devem passar na verificação de contraste AA da WCAG.</li>
+                        <li><strong>Navegação por Teclado:</strong> Todos os elementos interativos (links, botões) devem ter um estado :focus-visible claro e distinto.</li>
+                        <li><strong>Texto Alternativo:</strong> Todas as imagens (&lt;img&gt;) devem ter um atributo alt descritivo (ex: alt="Logo da empresa XYZ").</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Seção 7: Instrução Final para o Prompt de IA -->
+            <section id="instrucao-ia" class="fade-in">
+                <h2>7. Instrução Final para o Prompt de IA</h2>
+                <div class="card">
+                    <p>Use esta instrução unificada para garantir a criação de páginas consistentes com este sistema de design.</p>
+                    <p>"Atue como um desenvolvedor front-end sênior. Crie uma página <strong>[de apresentação institucional da Live Consultoria OU de proposta comercial para o cliente (Nome do Cliente)]</strong>. A página deve seguir rigorosamente o Sistema de Design Unificado da Live, com foco em performance e acessibilidade.</p>
+                    <p><strong>Diretrizes Essenciais:</strong></p>
+                    <ol>
+                        <li><strong>Estrutura e Semântica:</strong> Use HTML5 semântico (&lt;header&gt;, &lt;main&gt;, etc.).</li>
+                        <li><strong>Estilo com Tokens:</strong> Utilize exclusivamente as variáveis CSS (tokens) para cores, fontes e espaçamentos.</li>
+                        <li><strong>Layout Responsivo:</strong> Adote uma abordagem Mobile-First.</li>
+                        <li><strong>Ativos da Marca:</strong> Utilize os URLs de logos e texturas definidos no guia, aplicando o logo correto para o contexto (Institucional vs. Proposta). O fundo deve ter a textura de cubos com background-attachment: fixed.</li>
+                        <li><strong>Componentes:</strong> Todos os blocos de conteúdo devem usar o componente .card com todos os seus estados de interação definidos.</li>
+                        <li><strong>Animações e Performance:</strong> Seções devem ter animação fade-in ativada via IntersectionObserver. Imagens devem ter loading="lazy".</li>
+                        <li><strong>Acessibilidade:</strong> Garanta contraste de cores, foco visível para teclado e textos alternativos para imagens.</li>
+                    </ol>
+                    <p><strong>Conteúdo Específico:</strong></p>
+                    <ul>
+                        <li><strong>[SE FOR INSTITUCIONAL]:</strong> Inclua a seção '#clientes', populando-a com todos os logos da Biblioteca de Ativos.</li>
+                        <li><strong>[SE FOR PROPOSTA]:</strong> Omita a seção '#clientes'. Personalize o conteúdo para o (Nome do Cliente). Use a fonte var(--font-secondary) na seção de diagnóstico e implemente o 'Plano de Ação' usando o componente de linha do tempo vertical animada."</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Seção Sumário de Sugestões para Melhorias Visuais e de Usabilidade (UX/UI) -->
+            <section id="sumario-sugestoes" class="fade-in">
+                <h2>Sumário de Sugestões para Melhorias Visuais e de Usabilidade (UX/UI)</h2>
+                <div class="card">
+                    <p><strong>Documento de Suporte ao Guia de Estilo V2 (LiVe)</strong></p>
+                    <p><strong>Propósito:</strong> Este documento consolida diretrizes estratégicas de Experiência do Usuário (UX) e Interface do Usuário (UI) para a implementação das páginas HTML da Live Consultoria. O foco é aprimorar a conversão, a legibilidade e a acessibilidade, mantendo a rigorosa aderência aos *tokens* de design definidos no Guia de Estilo (V2).</p>
+
+                    <h3>I. Diretrizes de Cores, Foco e Estética (UI/Branding)</h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Diretriz</th>
+                                <th>Racional e Suporte</th>
+                                <th>Conflitos Potenciais e Comando de IA</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>1. Uso Estratégico da Cor de Destaque</strong></td>
+                                <td>O <strong>Verde Vibrante</strong> (<code>--accent-color</code>) deve ser utilizado com moderação e intencionalidade para evitar a competição visual. Essa cor deve ser reservada para elementos que exigem ação imediata (CTAs primários) e fornecem feedback (foco visível). O uso estratégico de cores contrastantes faz com que o botão *call-to-action* se destaque do resto do conteúdo.</td>
+                                <td><strong>Conflito (Uso em Títulos):</strong> O Guia de Estilo permite o uso do *token* <code>--accent-color</code> para "títulos". O uso excessivo pode levar à <strong>Cegueira a Anúncios</strong> (ignorar o destaque). <strong>Comando de IA:</strong> Priorize o <code>var(--accent-color)</code> estritamente em <strong>botões e CTAs primários</strong> e no estado <code>:focus-visible</code>. Reduza seu uso em títulos que não sejam o <code>&lt;h1&gt;</code> ou blocos que não requeiram ação imediata.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>2. Contraste e Acessibilidade Visual</strong></td>
+                                <td>O contraste é crucial para a legibilidade dos conteúdos e a acessibilidade do site. Todas as combinações de texto/fundo devem satisfazer o requisito <strong>WCAG AA</strong>.</td>
+                                <td><strong>Refinamento (Texto Longo):</strong> Em fundos escuros (<code>--primary-bg</code>), o texto longo principal deve preferir tons cinzentos suaves (<code>--text-subtle</code> ou <code>--text-muted</code>) em vez de branco puro (<code>--text-primary</code>) para reduzir a <strong>fadiga visual</strong>. <strong>Comando de IA:</strong> EM <strong>PARÁGRAFOS EXTENSOS</strong>, substitua o <code>var(--text-primary)</code> pelo <code>var(--text-subtle)</code> ou <code>var(--text-muted)</code>. Em títulos ou textos curtos, mantenha <code>var(--text-primary)</code>.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>3. Estética Minimalista</strong></td>
+                                <td>Priorize o <strong>Design Minimalista e Funcional</strong>, utilizando layouts limpos e amplo <strong>Espaço em Branco</strong> (*whitespace*). O design minimalista e estético assegura que os diálogos não contenham informações irrelevantes ou raramente necessárias, focando no essencial.</td>
+                                <td><strong>Comando de IA:</strong> Garanta que os elementos visuais suportem os objetivos principais do usuário. Utilize a escala de espaçamento do sistema de design (<code>--space-sm</code>, <code>--space-md</code>, etc.) para separar seções e parágrafos, facilitando a leitura (Macro e Micro *Whitespace*).</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <h3>II. Diretrizes de Conteúdo e Legibilidade (UX)</h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Diretriz</th>
+                                <th>Racional e Suporte</th>
+                                <th>Conflitos Potenciais e Comando de IA</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>4. Hierarquia e Escala de Títulos</strong></td>
+                                <td>Mantenha uma hierarquia textual clara (H1, H2, H3) e utilize a escala de tamanho definida pelos *tokens* (<code>--font-size-h1</code>, etc.). A Hierarquia dentro do design de interface prioriza um elemento em detrimento do outro a partir de critérios como tamanho.</td>
+                                <td><strong>Comando de IA:</strong> Garanta o uso de um <strong>único &lt;h1&gt; por página</strong> para definir o conteúdo mais importante e a palavra-chave foco. Utilize &lt;h2&gt; e &lt;h3&gt; para estruturar e agrupar o conteúdo abaixo.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>5. Otimização da Linha de Texto</strong></td>
+                                <td>Limite o corpo do texto a uma largura que contenha <strong>entre 50 e 75 caracteres por linha</strong>. Isso evita tornar o texto tedioso e causa cansaço visual, melhorando a legibilidade.</td>
+                                <td><strong>Comando de IA:</strong> Aplique *breakpoints* (consultas de mídia) para restringir a largura máxima do texto, garantindo que colunas de conteúdo longo não excedam 75 caracteres em telas maiores.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>6. Organização e Agrupamento (*Chunking*)</strong></td>
+                                <td>Agrupe informações relacionadas em "blocos" visualmente distintos, usando o componente <code>.card</code> e o princípio de proximidade. Isso ajuda os usuários a processar, entender e memorizar as informações facilmente (Lei de Miller).</td>
+                                <td><strong>Comando de IA:</strong> Ao desenvolver seções de recursos ou portfólio, use o componente <code>.card</code> para agrupar visualmente informações de forma coesa, reforçando a estrutura de módulos (Chunking).</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <h3>III. Diretrizes de Interação e Performance (Acessibilidade)</h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Diretriz</th>
+                                <th>Racional e Suporte</th>
+                                <th>Conflitos Potenciais e Comando de IA</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>7. Design Responsivo (Mobile-First)</strong></td>
+                                <td>Siga a abordagem <strong>Mobile-First</strong> e garanta que o site esteja adaptado para dispositivos móveis. A flexibilidade de design é crucial, pois o tamanho da tela não prevê o que o usuário quer ver.</td>
+                                <td><strong>Comando de IA:</strong> Defina os estilos para telas pequenas e depois aprimore com *media queries* (<code>min-width</code>) para *breakpoints* maiores. Utilize <strong>Flexbox</strong> ou <strong>CSS Grid</strong> para layouts responsivos.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>8. Performance e Carregamento Rápido</strong></td>
+                                <td>O carregamento lento é um dos erros mais comuns que trazem malefícios ao negócio. Forneça *feedback* do sistema em até <strong>400 ms</strong> (Limiar de Doherty) para manter a atenção do usuário.</td>
+                                <td><strong>Comando de IA:</strong> Garanta que todas as imagens (<code>&lt;img&gt;</code>) incluam atributos <code>width</code> e <code>height</code> (além de <code>loading="lazy"</code>) para evitar mudanças abruptas de layout (*layout shifts*) e otimizar a velocidade de carregamento. Ative a animação <code>.fade-in</code> via <code>IntersectionObserver</code>.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>9. Otimização de Formulários e Feedback</strong></td>
+                                <td>Formulários devem ser concisos e simples, limitando o número de campos (Lei de Hick). É fundamental fornecer <strong>feedback imediato</strong> ao usuário após o preenchimento, confirmando ou diagnosticando erros em linguagem simples.</td>
+                                <td><strong>Comando de IA:</strong> Em caso de erro (ex: preenchimento de login), a mensagem deve ser expressa sem códigos, indicar precisamente o problema e sugerir uma solução de forma construtiva (Heurística 9). Garanta que os campos de formulário solicitem apenas o necessário.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>10. Acessibilidade na Navegação</strong></td>
+                                <td>Todos os elementos interativos (como links e cartões) devem ter um estado de foco visível e claro (<code>:focus-visible</code> com <code>var(--accent-color)</code>) para garantir a <strong>Navegação por Teclado</strong>. <strong>Alvos de toque</strong> em dispositivos móveis devem ter tamanho e espaçamento adequados.</td>
+                                <td><strong>Comando de IA:</strong> Verifique se todas as imagens possuem o atributo <code>alt</code> descritivo. Utilize navegação por links de forma intuitiva, aderindo à <strong>Consistência e Padronização</strong> (Heurística 4).</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <h3>IV. Comando Final para o Processamento por IA (Reforço Empresarial)</h3>
+                    <p>Utilize a instrução de *prompt* já definida no guia, mas inclua as seguintes diretrizes para garantir a <strong>resiliência do design</strong> e a <strong>otimização de conversão</strong>:</p>
+                    <blockquote>
+                        <p>"Na fase de 'Prototipação', <strong>valide a usabilidade e a arquitetura da informação</strong> aplicando a técnica de <strong>Card Sorting</strong> para garantir que a navegação do site atenda aos modelos mentais do público-alvo (Lei de Jakob). Garanta que os CTAs e botões primários sigam o <strong>Efeito von Restorff</strong> para maximizar a conversão. Para todo o conteúdo longo, aplique o princípio de <strong>Chunking</strong> e o limite de <strong>50 a 75 caracteres por linha</strong> para otimizar a legibilidade."</p>
+                    </blockquote>
+                </div>
+            </section>
+
+            <!-- Seção Análise do index.html -->
+            <section id="analise-index" class="fade-in">
+                <h2>Análise do `index.html` para Padrão de Página</h2>
+                <div class="card">
+                    <p>Analisei o arquivo `index.html`. O padrão para criar novas páginas ou seções é bastante claro e modular. Aqui está um resumo:</p>
+                    <h3>Estrutura Principal:</h3>
+                    <ul>
+                        <li><strong>Arquivo HTML:</strong> A página é um único arquivo HTML com o CSS e o JavaScript embutidos.</li>
+                        <li><strong>Cabeçalho (<code>&lt;header&gt;</code>):</strong> Fixo no topo, contém o logo.</li>
+                        <li><strong>Seções (<code>&lt;section&gt;</code>):</strong> O corpo da página é dividido em seções. Cada seção tem um propósito (ex: "Sobre", "Serviços").</li>
+                        <li><strong>Container (<code>&lt;div class="container"&gt;</code>):</strong> Cada seção principal usa uma <code>div</code> com a classe <code>container</code> para centralizar o conteúdo e manter as margens.</li>
+                        <li><strong>Títulos (<code>&lt;h2&gt;</code>):</strong> As seções são introduzidas por um título <code>&lt;h2&gt;</code>.</li>
+                        <li><strong>Rodapé (<code>&lt;footer&gt;</code>):</strong> Fixo na parte inferior, com informações de contato e direitos autorais.</li>
+                    </ul>
+
+                    <h3>Estilo e Componentes:</h3>
+                    <ul>
+                        <li><strong>Cores:</strong> O estilo é controlado por variáveis CSS no início do bloco <code>&lt;style&gt;</code> (ex: <code>--azul-petroleo</code>, <code>--verde-vibrante</code>). Isso facilita a manutenção da paleta de cores.</li>
+                        <li><strong>Grids:</strong> O layout dos itens é feito com classes de grid, como <code>grid</code>, <code>grid-2</code>, <code>grid-3</code>, <code>grid-4</code>.</li>
+                        <li><strong>Cards (<code>&lt;div class="card"&gt;</code>):</strong> O conteúdo é frequentemente apresentado em "cards", que são caixas com fundo escuro, bordas arredondadas e uma leve sombra.</li>
+                        <li><strong>Botões (<code>&lt;a class="cta-button"&gt;</code>):</strong> Há um estilo padrão para botões de "call-to-action".</li>
+                        <li><strong>Animação:</strong> As seções usam a classe <code>fade-in</code> para uma animação suave de surgimento ao rolar a página. O JavaScript no final do arquivo cuida dessa funcionalidade.</li>
+                    </ul>
+
+                    <h3>Como criar uma nova página/seção (o padrão):</h3>
+                    <ol>
+                        <li><strong>Copie a estrutura básica:</strong> Comece com a mesma estrutura de <code>index.html</code>, incluindo o <code>&lt;head&gt;</code> (com todo o CSS), o <code>&lt;header&gt;</code> e o <code>&lt;footer&gt;</code>.</li>
+                        <li><strong>Crie uma nova <code>&lt;section&gt;</code>:</strong> Para cada novo bloco de conteúdo, crie uma tag <code>&lt;section&gt;</code>.</li>
+                        <li><strong>Adicione um <code>&lt;div class="container"&gt;</code>:</strong> Dentro da seção, coloque seu conteúdo dentro de um <code>&lt;div class="container"&gt;</code>.</li>
+                        <li><strong>Use os componentes existentes:</strong> Utilize as classes CSS já prontas para criar seus layouts. Por exemplo, para criar uma seção com três cards:</li>
+                    </ol>
+                    <pre><code>html
+&lt;section id="nova-secao" class="container fade-in"&gt;
+    &lt;h2&gt;Título da Nova Seção&lt;/h2&gt;
+    &lt;div class="grid grid-3"&gt;
+        &lt;div class="card"&gt;
+            &lt;h3&gt;Novo Item 1&lt;/h3&gt;
+            &lt;p&gt;Descrição do novo item 1.&lt;/p&gt;
+        &lt;/div&gt;
+        &lt;div class="card"&gt;
+            &lt;h3&gt;Novo Item 2&lt;/h3&gt;
+            &lt;p&gt;Descrição do novo item 2.&lt;/p&gt;
+        &lt;/div&gt;
+        &lt;div class="card"&gt;
+            &lt;h3&gt;Novo Item 3&lt;/h3&gt;
+            &lt;p&gt;Descrição do novo item 3.&lt;/p&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/section&gt;</code></pre>
+                    <ol start="5">
+                        <li><strong>Adicione a classe <code>fade-in</code>:</strong> Se quiser que a nova seção apareça com a animação de scroll, adicione a classe <code>fade-in</code> à tag <code>&lt;section&gt;</code>.</li>
+                    </ol>
+                    <p>Seguindo esses passos, você manterá a consistência visual e funcional da página existente.</p>
+                </div>
+            </section>
+
+            <!-- Seção Sumário de Sugestões (Repetida) -->
+            <section id="sumario-sugestoes-repetido" class="fade-in">
+                <h2>Sumário de Sugestões para Melhorias Visuais e de Usabilidade (UX/UI)</h2>
+                <div class="card">
+                    <p><strong>Documento de Suporte ao Guia de Estilo V2 (LiVe)</strong></p>
+                    <p><strong>Propósito:</strong> Este documento consolida diretrizes estratégicas de Experiência do Usuário (UX) e Interface do Usuário (UI) para a implementação das páginas HTML da Live Consultoria. O foco é aprimorar a conversão, a legibilidade e a acessibilidade, mantendo a rigorosa aderência aos *tokens* de design definidos no Guia de Estilo (V2).</p>
+
+                    <h3>I. Diretrizes de Cores, Foco e Estética (UI/Branding)</h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Diretriz</th>
+                                <th>Racional e Suporte</th>
+                                <th>Conflitos Potenciais e Comando de IA</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>1. Uso Estratégico da Cor de Destaque</strong></td>
+                                <td>O <strong>Verde Vibrante</strong> (<code>--accent-color</code>) deve ser utilizado com moderação e intencionalidade para evitar a competição visual. Essa cor deve ser reservada para elementos que exigem ação imediata (CTAs primários) e fornecem feedback (foco visível). O uso estratégico de cores contrastantes faz com que o botão *call-to-action* se destaque do resto do conteúdo.</td>
+                                <td><strong>Conflito (Uso em Títulos):</strong> O Guia de Estilo permite o uso do *token* <code>--accent-color</code> para "títulos". O uso excessivo pode levar à <strong>Cegueira a Anúncios</strong> (ignorar o destaque). <strong>Comando de IA:</strong> Priorize o <code>var(--accent-color)</code> estritamente em <strong>botões e CTAs primários</strong> e no estado <code>:focus-visible</code>. Reduza seu uso em títulos que não sejam o <code>&lt;h1&gt;</code> ou blocos que não requeiram ação imediata.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>2. Contraste e Acessibilidade Visual</strong></td>
+                                <td>O contraste é crucial para a legibilidade dos conteúdos e a acessibilidade do site. Todas as combinações de texto/fundo devem satisfazer o requisito <strong>WCAG AA</strong>.</td>
+                                <td><strong>Refinamento (Texto Longo):</strong> Em fundos escuros (<code>--primary-bg</code>), o texto longo principal deve preferir tons cinzentos suaves (<code>--text-subtle</code> ou <code>--text-muted</code>) em vez de branco puro (<code>--text-primary</code>) para reduzir a <strong>fadiga visual</strong>. <strong>Comando de IA:</strong> EM <strong>PARÁGRAFOS EXTENSOS</strong>, substitua o <code>var(--text-primary)</code> pelo <code>var(--text-subtle)</code> ou <code>var(--text-muted)</code>. Em títulos ou textos curtos, mantenha <code>var(--text-primary)</code>.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>3. Estética Minimalista</strong></td>
+                                <td>Priorize o <strong>Design Minimalista e Funcional</strong>, utilizando layouts limpos e amplo <strong>Espaço em Branco</strong> (*whitespace*). O design minimalista e estético assegura que os diálogos não contenham informações irrelevantes ou raramente necessárias, focando no essencial.</td>
+                                <td><strong>Comando de IA:</strong> Garanta que os elementos visuais suportem os objetivos principais do usuário. Utilize a escala de espaçamento do sistema de design (<code>--space-sm</code>, <code>--space-md</code>, etc.) para separar seções e parágrafos, facilitando a leitura (Macro e Micro *Whitespace*).</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <h3>II. Diretrizes de Conteúdo e Legibilidade (UX)</h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Diretriz</th>
+                                <th>Racional e Suporte</th>
+                                <th>Conflitos Potenciais e Comando de IA</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>4. Hierarquia e Escala de Títulos</strong></td>
+                                <td>Mantenha uma hierarquia textual clara (H1, H2, H3) e utilize a escala de tamanho definida pelos *tokens* (<code>--font-size-h1</code>, etc.). A Hierarquia dentro do design de interface prioriza um elemento em detrimento do outro a partir de critérios como tamanho.</td>
+                                <td><strong>Comando de IA:</strong> Garanta o uso de um <strong>único &lt;h1&gt; por página</strong> para definir o conteúdo mais importante e a palavra-chave foco. Utilize &lt;h2&gt; e &lt;h3&gt; para estruturar e agrupar o conteúdo abaixo.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>5. Otimização da Linha de Texto</strong></td>
+                                <td>Limite o corpo do texto a uma largura que contenha <strong>entre 50 e 75 caracteres por linha</strong>. Isso evita tornar o texto tedioso e causa cansaço visual, melhorando a legibilidade.</td>
+                                <td><strong>Comando de IA:</strong> Aplique *breakpoints* (consultas de mídia) para restringir a largura máxima do texto, garantindo que colunas de conteúdo longo não excedam 75 caracteres em telas maiores.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>6. Organização e Agrupamento (*Chunking*)</strong></td>
+                                <td>Agrupe informações relacionadas em "blocos" visualmente distintos, usando o componente <code>.card</code> e o princípio de proximidade. Isso ajuda os usuários a processar, entender e memorizar as informações facilmente (Lei de Miller).</td>
+                                <td><strong>Comando de IA:</strong> Ao desenvolver seções de recursos ou portfólio, use o componente <code>.card</code> para agrupar visualmente informações de forma coesa, reforçando a estrutura de módulos (Chunking).</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <h3>III. Diretrizes de Interação e Performance (Acessibilidade)</h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Diretriz</th>
+                                <th>Racional e Suporte</th>
+                                <th>Conflitos Potenciais e Comando de IA</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>7. Design Responsivo (Mobile-First)</strong></td>
+                                <td>Siga a abordagem <strong>Mobile-First</strong> e garanta que o site esteja adaptado para dispositivos móveis. A flexibilidade de design é crucial, pois o tamanho da tela não prevê o que o usuário quer ver.</td>
+                                <td><strong>Comando de IA:</strong> Defina os estilos para telas pequenas e depois aprimore com *media queries* (<code>min-width</code>) para *breakpoints* maiores. Utilize <strong>Flexbox</strong> ou <strong>CSS Grid</strong> para layouts responsivos.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>8. Performance e Carregamento Rápido</strong></td>
+                                <td>O carregamento lento é um dos erros mais comuns que trazem malefícios ao negócio. Forneça *feedback* do sistema em até <strong>400 ms</strong> (Limiar de Doherty) para manter a atenção do usuário.</td>
+                                <td><strong>Comando de IA:</strong> Garanta que todas as imagens (<code>&lt;img&gt;</code>) incluam atributos <code>width</code> e <code>height</code> (além de <code>loading="lazy"</code>) para evitar mudanças abruptas de layout (*layout shifts*) e otimizar a velocidade de carregamento. Ative a animação <code>.fade-in</code> via <code>IntersectionObserver</code>.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>9. Otimização de Formulários e Feedback</strong></td>
+                                <td>Formulários devem ser concisos e simples, limitando o número de campos (Lei de Hick). É fundamental fornecer <strong>feedback imediato</strong> ao usuário após o preenchimento, confirmando ou diagnosticando erros em linguagem simples.</td>
+                                <td><strong>Comando de IA:</strong> Em caso de erro (ex: preenchimento de login), a mensagem deve ser expressa sem códigos, indicar precisamente o problema e sugerir uma solução de forma construtiva (Heurística 9). Garanta que os campos de formulário solicitem apenas o necessário.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>10. Acessibilidade na Navegação</strong></td>
+                                <td>Todos os elementos interativos (como links e cartões) devem ter um estado de foco visível e claro (<code>:focus-visible</code> com <code>var(--accent-color)</code>) para garantir a <strong>Navegação por Teclado</strong>. <strong>Alvos de toque</strong> em dispositivos móveis devem ter tamanho e espaçamento adequados.</td>
+                                <td><strong>Comando de IA:</strong> Verifique se todas as imagens possuem o atributo <code>alt</code> descritivo. Utilize navegação por links de forma intuitiva, aderindo à <strong>Consistência e Padronização</strong> (Heurística 4).</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <h3>IV. Comando Final para o Processamento por IA (Reforço Empresarial)</h3>
+                    <p>Utilize a instrução de *prompt* já definida no guia, mas inclua as seguintes diretrizes para garantir a <strong>resiliência do design</strong> e a <strong>otimização de conversão</strong>:</p>
+                    <blockquote>
+                        <p>"Na fase de 'Prototipação', <strong>valide a usabilidade e a arquitetura da informação</strong> aplicando a técnica de <strong>Card Sorting</strong> para garantir que a navegação do site atenda aos modelos mentais do público-alvo (Lei de Jakob). Garanta que os CTAs e botões primários sigam o <strong>Efeito von Restorff</strong> para maximizar a conversão. Para todo o conteúdo longo, aplique o princípio de <strong>Chunking</strong> e o limite de <strong>50 a 75 caracteres por linha</strong> para otimizar a legibilidade."</p>
+                    </blockquote>
+                </div>
+            </section>
+
+            <!-- Seção Clientes (Institucional) -->
+            <section id="clientes" class="fade-in">
+                <h2>Clientes</h2>
+                <div class="card">
+                    <div class="clientes-grid">
+                        <img src="https://raw.githubusercontent.com/Clebito2/ApresentacaoConsultoria/main/LOGO%20VOX.png" alt="Logo Vox2you" class="cliente-logo" loading="lazy">
+                        <img src="https://raw.githubusercontent.com/Clebito2/ApresentacaoConsultoria/main/Logo%20okamoto.png" alt="Logo Okamoto" class="cliente-logo" loading="lazy">
+                        <img src="https://raw.githubusercontent.com/Clebito2/ApresentacaoConsultoria/main/Logo%20Casa%20dibs.png" alt="Logo Casa Dibs" class="cliente-logo" loading="lazy">
+                        <img src="https://raw.githubusercontent.com/Clebito2/ApresentacaoConsultoria/main/Logo%20TCE.png" alt="Logo TCE-RO" class="cliente-logo" loading="lazy">
+                        <img src="https://raw.githubusercontent.com/Clebito2/ApresentacaoConsultoria/main/Tecno%20IT.png?raw=true" alt="Logo TecnolT" class="cliente-logo" loading="lazy">
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Rodapé (Padrão V3) -->
+    <footer>
+        <img src="https://raw.githubusercontent.com/Clebito2/ConsultoriaLive/main/Logo%20live%20oficial-21.png" alt="Logo da Live Consultoria" class="footer-logo" loading="lazy" onerror="this.onerror=null; this.src='https://placehold.co/96x96/000000/a0a0a0?text=Live+Logo'">
+        <p>Live Consultoria Empresarial</p>
+        <p>Transformando Potencial em Performance.</p>
+    </footer>
+
+    <!-- Scripts da Página -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            if (document.documentElement.classList.contains('js')) {
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add('is-visible');
+                            observer.unobserve(entry.target);
+                        }
+                    });
+                }, { threshold: 0.1 });
+                const targets = document.querySelectorAll('.fade-in');
+                targets.forEach(target => {
+                    target.style.opacity = 0;
+                    observer.observe(target);
+                });
+            }
+        });
+    </script>
+</body>
+</html>
