@@ -1,104 +1,490 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Resultado da Entrevista - Daniel Estoquista | Casa Goianita</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Análise de Entrevista | Daniel L. Gonzaga</title>
+
+    <!-- Importação das Fontes (Poppins e Merriweather) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,400;1,700&family=Poppins:wght@300;400;600;700&display=swap"
+        rel="stylesheet">
+
     <style>
+        /* --- Sistema de Design e Padrão Técnico Unificado – Live Consultoria (V3) --- */
+
+        /* 1. Núcleo da Identidade Visual (Tokens) */
         :root {
-            --azul-petroleo: #06192a;
-            --verde-vibrante: #00e800;
-            --cinza-claro: #f4f4f4;
+            /* Paleta Principal */
+            --primary-bg: #06192a;
+            /* Azul Petróleo - Fundo principal */
             --card-bg: #0A243D;
+            /* Azul Escuro - Fundo de cards */
+            --accent-color: #00e800;
+            /* Verde Vibrante - Destaques, links, títulos */
+
+            /* Textos */
+            --text-primary: #ffffff;
+            /* Branco - Textos principais */
+            --text-muted: #cccccc;
+            /* Cinza Claro */
+            --text-subtle: #a0a0a0;
+            /* Cinza - Textos secundários e parágrafos */
+
+            /* Bordas e Efeitos */
             --border-color: rgba(255, 255, 255, 0.1);
-            --font-primaria: 'Poppins', sans-serif;
-            --font-secundaria: 'Merriweather', serif;
+            --accent-glow: 0 0 8px rgba(0, 232, 0, 0.7);
+            /* Sombra para o verde vibrante */
+
+            /* Tipografia */
+            --font-primary: 'Poppins', sans-serif;
+            --font-secondary: 'Merriweather', serif;
+
+            /* Tamanhos de Fonte (Mobile-First) */
+            --font-size-base: 1.1rem;
+            --font-size-h3: 1.5rem;
+            --font-size-h2: clamp(2rem, 4vw, 2.5rem);
+            --font-size-h1: clamp(2.5rem, 5vw, 3rem);
+
+            /* Espaçamento */
+            --space-sm: 1rem;
+            /* 16px */
+            --space-md: 2rem;
+            /* 32px */
+            --space-lg: 4rem;
+            /* 64px */
         }
+
+        /* 2. Estilos Globais e Textura de Fundo */
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
         body {
-            font-family: var(--font-primaria);
-            background-color: var(--azul-petroleo);
-            color: var(--cinza-claro);
+            font-family: var(--font-primary);
+            background-color: var(--primary-bg);
+            /* Fallback */
             background-image: url('https://www.transparenttextures.com/patterns/cubes.png');
             background-attachment: fixed;
+            color: var(--text-subtle);
+            line-height: 1.7;
+            font-size: var(--font-size-base);
         }
+
+        /* 3. Estrutura e Layout */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: var(--space-sm) var(--space-md);
+            background-color: rgba(6, 25, 42, 0.8);
+            /* primary-bg com transparência */
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border-color);
+            z-index: 1000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        header img {
+            height: 40px;
+        }
+
+        footer {
+            padding: var(--space-lg) var(--space-md);
+            text-align: center;
+            border-top: 1px solid var(--border-color);
+            margin-top: var(--space-lg);
+        }
+
+        footer img {
+            height: 60px;
+            margin-bottom: var(--space-sm);
+        }
+
+        main {
+            padding-top: 80px;
+            /* Espaço para o header fixo */
+        }
+
         .container {
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 2rem;
+            width: 90%;
+            max-width: 1100px;
+            margin-left: auto;
+            margin-right: auto;
+            padding-top: var(--space-md);
+            padding-bottom: var(--space-md);
         }
+
+        h1,
+        h2,
+        h3,
+        h4 {
+            font-family: var(--font-primary);
+            color: var(--text-primary);
+            font-weight: 600;
+            line-height: 1.3;
+            margin-bottom: var(--space-sm);
+        }
+
+        h1 {
+            font-size: var(--font-size-h1);
+            color: var(--accent-color);
+            text-shadow: var(--accent-glow);
+            text-align: center;
+            margin-bottom: var(--space-md);
+        }
+
+        h2 {
+            font-size: var(--font-size-h2);
+            border-bottom: 2px solid var(--accent-color);
+            padding-bottom: 0.5rem;
+            margin-top: var(--space-md);
+        }
+
+        h3 {
+            font-size: var(--font-size-h3);
+            color: var(--text-muted);
+            margin-top: var(--space-md);
+        }
+
+        h4 {
+            color: var(--text-primary);
+            font-weight: 600;
+            margin-top: 1.5rem;
+        }
+
+        p {
+            margin-bottom: 1rem;
+        }
+
+        ul {
+            list-style-position: inside;
+            padding-left: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        li {
+            margin-bottom: 0.5rem;
+        }
+
+        strong {
+            color: var(--text-muted);
+            font-weight: 600;
+        }
+
+        /* 4. Componentes */
+
+        /* Botão/Link */
+        .cta-button {
+            display: inline-block;
+            background-color: var(--accent-color);
+            color: var(--primary-bg);
+            font-weight: 700;
+            text-decoration: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 8px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            text-align: center;
+            margin-top: var(--space-sm);
+            margin-bottom: var(--space-md);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 15px rgba(0, 232, 0, 0.4);
+        }
+
+        .cta-button:focus-visible {
+            outline: 3px solid var(--accent-color);
+            outline-offset: 3px;
+        }
+
+        /* Card Padrão */
         .card {
             background-color: var(--card-bg);
             border: 1px solid var(--border-color);
+            padding: var(--space-md);
             border-radius: 12px;
-            padding: 2rem;
-            margin-bottom: 2rem;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            margin-top: var(--space-md);
         }
-        h1 {
-            font-family: var(--font-secundaria);
-            font-size: 2.5rem;
-            color: var(--verde-vibrante);
-            text-align: center;
-            margin-bottom: 1.5rem;
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
         }
-        h2 {
-            font-size: 1.8rem;
-            color: var(--cinza-claro);
-            margin-bottom: 1rem;
-            border-bottom: 1px solid var(--border-color);
-            padding-bottom: 0.5rem;
+
+        .card:focus-visible {
+            outline: 3px solid var(--accent-color);
+            outline-offset: 3px;
         }
-        p {
-            margin-bottom: 1rem;
-            line-height: 1.6;
+
+        /* Card de Diagnóstico (Variação) */
+        .card-diagnostico {
+            border-left: 4px solid var(--accent-color);
+            font-family: var(--font-secondary);
+            font-size: 1.2rem;
+            line-height: 1.8;
+            color: var(--text-muted);
+            font-style: italic;
         }
-        a {
-            color: var(--verde-vibrante);
-            text-decoration: none;
+
+        /* 5. Animações e Performance */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
         }
-        a:hover {
-            text-decoration: underline;
-        }
-        .button {
-            display: inline-block;
-            background-color: var(--verde-vibrante);
-            color: var(--azul-petroleo);
-            padding: 0.75rem 1.5rem;
-            border-radius: 8px;
-            font-weight: 600;
-            text-align: center;
-            transition: background-color 0.3s ease;
-        }
-        .button:hover {
-            background-color: #00c200;
+
+        .fade-in.is-visible {
+            opacity: 1;
+            transform: translateY(0);
         }
     </style>
 </head>
+
 <body>
-    <div class="container">
-        <h1>Resultado da Entrevista - Daniel (Estoquista)</h1>
 
-        <div class="card">
-            <h2>Informações do Candidato</h2>
-            <p><strong>Nome:</strong> Daniel</p>
-            <p><strong>Cargo Candidatado:</strong> Estoquista</p>
-            <p><strong>Currículo:</strong> <a href="https://drive.google.com/file/d/154p26vfR_rr2jx-CkoRYvAFu9LGHfDFS/view?usp=drive_link" target="_blank" class="button">Visualizar Currículo</a></p>
-        </div>
+    <!-- Cabeçalho Fixo (Padrão Proposta) -->
+    <header>
+        <img src="https://raw.githubusercontent.com/Clebito2/layout/main/Logo%20live%20oficial-36.png"
+            alt="Logo Live Consultoria">
+    </header>
 
-        <div class="card">
-            <h2>Resumo da Avaliação</h2>
-            <p>Daniel demonstrou forte alinhamento com as competências necessárias para a vaga de Estoquista. Sua experiência anterior e o entendimento dos princípios 5S foram pontos positivos. Ele apresentou boa capacidade de organização e atenção aos detalhes durante a entrevista.</p>
-            <p><strong>Pontos Fortes:</strong> Organização, conhecimento prático de estoque, proatividade.</p>
-            <p><strong>Pontos a Desenvolver:</strong> Necessidade de aprofundamento em sistemas de gestão de estoque mais complexos.</p>
-        </div>
+    <!-- Conteúdo Principal -->
+    <main>
+        <div class="container">
+            <!-- Título da Página -->
+            <section class="fade-in">
+                <h1>Análise de Entrevista<br>Daniel Liborio Gonzaga</h1>
+                <div style="text-align: center;">
+                    <a href="https://drive.google.com/file/d/154p26vfR_rr2jx-CkoRYvAFu9LGHfDFS/view?usp=drive_link"
+                        class="cta-button" target="_blank" rel="noopener noreferrer">
+                        Acessar CV do Candidato
+                    </a>
+                </div>
+            </section>
 
-        <div class="card">
-            <h2>Recomendação</h2>
-            <p>Recomendado para a próxima etapa do processo seletivo, com potencial para se integrar bem à equipe e contribuir significativamente para a otimização do estoque da Casa Goianita.</p>
+            <!-- Card de Introdução (Diagnóstico) -->
+            <section class="fade-in">
+                <div class="card card-diagnostico">
+                    <p>A seguir, apresento uma análise estruturada da transcrição da entrevista com o candidato Daniel,
+                        mapeando as respostas relevantes às perguntas do formulário do Guia Interativo de Entrevista para
+                        Estoquista. A extração foi realizada com base no conteúdo da transcrição, identificando trechos
+                        que correspondem diretamente ou indiretamente a cada pergunta. Quando não há correspondência
+                        exata, indico inferências lógicas ou ausência de informação. A organização segue a estrutura do
+                        formulário (Fase 2: Condução), agrupada por blocos. Para a Fase 3 (Avaliação), sugiro uma
+                        pontuação baseada em critérios objetivos derivados da transcrição, considerando os pesos das
+                        categorias (Comportamentais: 50%; Técnicas: 30%; Alinhamento: 20%). As sugestões de notas
+                        (escala de 1 a 5) são justificadas brevemente, priorizando evidências de proatividade,
+                        experiência e alinhamento com os princípios 5S.</p>
+                </div>
+            </section>
+
+            <!-- Card - Fase 2 -->
+            <section class="fade-in">
+                <div class="card">
+                    <h2>Fase 2: Condução (Diálogo Estruturado)</h2>
+                    <p><strong>Nome do Candidato:</strong> Daniel.</p>
+
+                    <h3>Bloco 1: Abertura e Motivação (5-10 min)</h3>
+
+                    <h4>1. Fale-me um pouco sobre sua trajetória profissional, focando em experiências com gestão de
+                        materiais e organização.</h4>
+                    <p>O candidato descreve uma progressão profissional relevante, iniciando como auxiliar de descarga e
+                        operador de empilhadeira no Tatico, onde lidava com locação de produtos, descida de materiais de
+                        caminhão e desenvolvimento de processos até a terceirização. Em seguida, atuou como promotor de
+                        vendas na Lebes e na Stock (empresa de limpeza de piscinas), onde realizava recebimento,
+                        distribuição de equipamentos, organização de estoque, lançamento de produtos no sistema e
+                        saídas. Menciona experiência prévia como auxiliar de estoque em loja de autopeças, com sistema
+                        próprio para entradas e saídas. Também trabalhou como promotor de merchandising na Unilever,
+                        repondo produtos em supermercados (setores alimentício, perfumaria e limpeza), e como
+                        soldador/auxiliar de produção em 2018. Atualmente, complementa renda com venda de churros de
+                        forma terceirizada.</p>
+
+                    <h4>2. O que te atraiu especificamente a esta vaga de Estoquista?</h4>
+                    <p>O candidato expressa interesse pela área de estoque, na qual já atua e possui convivência. Ao ver
+                        o anúncio, identificou alinhamento com sua experiência e viu oportunidade de aprendizado
+                        adicional. Ele busca estabilidade, especialmente após casamento recente, e considera a vaga um
+                        passo para uma área que o identifica.</p>
+
+                    <h3>Bloco 2: Experiências Anteriores e Rotina (10-15 min)</h3>
+
+                    <h4>3. Descreva seu dia a dia em seu último emprego de estoque. Quais eram suas principais
+                        responsabilidades, além de apenas guardar materiais?</h4>
+                    <p>Na Stock (empresa de limpeza de piscinas), o candidato realizava recebimento e distribuição de
+                        equipamentos para piscineiros, organização de estoque, lançamento de produtos no sistema (via
+                        planilha Excel), saídas de materiais, contagem mensal e envio de informações para o setor de
+                        compras. Não solicitava compras diretamente, mas passava dados para contagem e aquisição. Em
+                        experiências anteriores, como no Tatico, lidava com locação em altura via empilhadeira elétrica,
+                        montagem de paletes e equilíbrio entre alocação e saídas, considerando datas de validade. Na
+                        Unilever, focava em reposição de produtos em piso de loja, com atenção a demandas altas e
+                        setores variados.</p>
+
+                    <h4>4. Qual era o sistema (ou método) que você utilizava para garantir que um produto fosse
+                        facilmente localizado por qualquer pessoa da equipe?</h4>
+                    <p>O candidato utilizava planilhas manuais (Excel) para controle de saídas, aplicando o método FIFO
+                        (Primeiro que Entra, Primeiro que Sai) para rodízio de produtos, com identificação por data de
+                        validade e chegada. No Tatico e Unilever, identificava locações com etiquetas para datas,
+                        garantindo que produtos novos não fossem priorizados sobre os antigos, evitando prejuízos. Em
+                        depósitos, separava produtos por tipo (bruto, manufaturado, acabado) e criava bancadas para
+                        organização, separando áreas para manipulação e armazenamento.</p>
+
+                    <h3>Bloco 3: Competências Comportamentais (Técnica STAR) (20-25 min)</h3>
+
+                    <h4>5. (Atenção aos Detalhes) Fale sobre uma vez em que sua atenção aos detalhes foi essencial para
+                        evitar um erro grave (como produto errado ou vencido) no estoque.</h4>
+                    <p>No Tatico, durante locação em altura com empilhadeira, a atenção à montagem de paletes evitou
+                        acidentes, pois uma montagem incorreta poderia causar quedas. Na Unilever, verificava datas de
+                        validade semanalmente para produtos de alta rotatividade (como bebidas com validade de 3-6
+                        meses), rearrumando prateleiras para que itens mais antigos saíssem primeiro, prevenindo perdas
+                        e prejuízos. Isso incluía verificações em setores como perfumaria e limpeza.</p>
+
+                    <h4>6. (Utilização/Seiri) Conte-me sobre uma ocasião em que você identificou excesso de materiais ou
+                        equipamentos sem uso no depósito. Qual foi a sua ação?</h4>
+                    <p>Na Stock, identificou falta de espaço e produtos químicos misturados no chão. Sentou-se com os
+                        donos para propor bancadas e separação em três áreas (produto bruto, manufaturado, acabado),
+                        cobrindo materiais para segurança. A mudança foi implementada, melhorando o espaço,
+                        distribuição e saúde (reduzindo riscos de corrosivos como cloro e sulfato de cobre).</p>
+
+                    <h4>7. (Disciplina/Shitsuke) Descreva um momento em que foi solicitado que você seguisse um novo
+                        padrão de organização ou uma regra de segurança que você não concordava totalmente. Como você
+                        lidou com isso?</h4>
+                    <p>No Tatico, devido à falta de espaço, removeram bases do depósito para aumentar capacidade, o que
+                        o candidato discordava por questões de higiene e limpeza. Apesar da discordância, seguiu a
+                        diretoria, mas sugeriu análise para expansão física. Lidou participando de "briga" entre
+                        diretoria e equipe, priorizando consenso sem mudanças drásticas.</p>
+
+                    <h4>8. (Organização/Seiton) Fale sobre um dia em que o depósito estava extremamente desorganizado.
+                        Qual foi a sua primeira ação para resolver o problema?</h4>
+                    <p>Na Stock, ao identificar desorganização inicial (tudo junto no chão, sem cobertura), a primeira
+                        ação foi analisar o espaço e propor mudanças aos donos, como bancadas e separação por
+                        tipo/processo. Isso resultou em ambiente mais seguro e eficiente, embora a transcrição não
+                        detalhe um "dia específico" de caos, mas uma situação inicial resolvida por análise e consenso.
+                    </p>
+
+                    <h3>Bloco 4: Role Play e Encerramento (10-15 min)</h3>
+
+                    <h4>9. (Simulação/Role Play) "Eu sou seu colega impaciente, procurando o 'Aparelho de Jantar XPTO'
+                        que sei que chegou ontem, mas não está no local de costume. Como você me ajudaria a
+                        encontrá-lo, garantindo que eu saiba onde procurar da próxima vez?"</h4>
+                    <p>Não há simulação de role play na transcrição; o entrevistador não a executou explicitamente.
+                        Inferência: Baseado em respostas sobre localização (etiquetas e separação), o candidato
+                        enfatizaria verificação de endereçamento e treinamento em métodos como FIFO para futura
+                        autonomia.</p>
+
+                    <h4>10. Você tem alguma pergunta para mim sobre a vaga, a equipe ou a empresa?</h4>
+                    <p>O candidato questionou sobre o valor do vale-alimentação (confirmado como R$ 14 por dia, pago em
+                        dinheiro via transferência), forma de pagamento, flexibilidade de horário (preferência por
+                        9h-18h de segunda a sexta, e sábado manhã), acesso ao local (vem de moto), interesse em vendas
+                        (com treinamento, aceita desafios, mas prioriza conhecimento de produtos), e comparou com outra
+                        oferta (R$ 2.200 na carteira + benefícios como vale-alimentação de R$ 27/dia,
+                        vale-transporte/ajuda de custo, plano de saúde e odontológico).</p>
+                </div>
+            </section>
+
+            <!-- Card - Fase 3 -->
+            <section class="fade-in">
+                <div class="card">
+                    <h2>Fase 3: Avaliação (Ficha de Avaliação)</h2>
+                    <p>Baseado na transcrição, sugiro as seguintes notas (escala 1-5: 1=Insatisfatório, 5=Excepcional).
+                        Elas consideram exemplos concretos de experiência, proatividade e alinhamento com 5S, mas notam
+                        ausência de role play e negociação salarial (indicando fit parcial).</p>
+
+                    <h4>Competências Comportamentais (50%):</h4>
+                    <ul>
+                        <li>Organização/Seiton: <strong>4</strong> (Demonstra separação de áreas e métodos de
+                            localização eficazes).</li>
+                        <li>Atenção aos Detalhes: <strong>5</strong> (Evitou acidentes e perdas via verificação de
+                            validade e montagem precisa).</li>
+                        <li>Disciplina/Ética (Shitsuke): <strong>4</strong> (Seguiu mudanças apesar de discordância,
+                            priorizando consenso).</li>
+                        <li>Proatividade (Seiri): <strong>5</strong> (Identificou e resolveu excessos com propostas
+                            práticas).</li>
+                        <li>Resiliência: <strong>4</strong> (Lidou com riscos químicos e mudanças, buscando
+                            estabilidade).</li>
+                    </ul>
+
+                    <h4>Competências Técnicas (30%):</h4>
+                    <ul>
+                        <li>Experiência em Estoque/Logística: <strong>5</strong> (Ampla em recebimento, distribuição,
+                            sistemas e empilhadeiras).</li>
+                        <li>Conhecimento 5S (Prático): <strong>4</strong> (Aplica Seiri/Seiton implicitamente, com foco
+                            em higiene e organização).</li>
+                    </ul>
+
+                    <h4>Alinhamento (20%):</h4>
+                    <ul>
+                        <li>Motivação e Fit Cultural: <strong>3</strong> (Interessado, mas salário abaixo do esperado;
+                            compara com outra oferta).</li>
+                        <li>Coachability (Aprendizado): <strong>4</strong> (Aceita desafios e treinamentos, como em
+                            vendas).</li>
+                    </ul>
+
+                    <h4>Parecer do Entrevistador (Sugestão):</h4>
+                    <ul>
+                        <li><strong>Pontos Fortes Observados:</strong> Experiência robusta em logística, proatividade em
+                            organização (ex.: separação de produtos químicos), atenção a detalhes para evitar erros e
+                            riscos à saúde.</li>
+                        <li><strong>Pontos de Atenção (Red Flags):</strong> Expectativa salarial superior (R$ 2.200 +
+                            benefícios melhores); saída anterior por riscos de saúde, sugerindo priorização de
+                            segurança.</li>
+                        <li><strong>Parecer Final:</strong> Aprovado com Ressalvas (Considerar contraproposta salarial
+                            para retenção, dado perfil alinhado).</li>
+                    </ul>
+                </div>
+            </section>
+
         </div>
-    </div>
+    </main>
+
+    <!-- Rodapé (Padrão Proposta) -->
+    <footer>
+        <img src="https://raw.githubusercontent.com/Clebito2/layout/main/Logo%20live%20oficial-34.png"
+            alt="Logo Live Consultoria">
+        <p style="color: var(--text-subtle); font-size: 0.9rem;">Documento Interno de Análise de RH</p>
+    </footer>
+
+    <!-- Script para Animação de Entrada (IntersectionObserver) -->
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const elements = document.querySelectorAll('.fade-in');
+
+            if ("IntersectionObserver" in window) {
+                const observer = new IntersectionObserver((entries, observer) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add('is-visible');
+                            observer.unobserve(entry.target);
+                        }
+                    });
+                }, {
+                    threshold: 0.1
+                });
+
+                elements.forEach(el => {
+                    observer.observe(el);
+                });
+            } else {
+                // Fallback para navegadores sem IntersectionObserver
+                elements.forEach(el => {
+                    el.classList.add('is-visible');
+                });
+            }
+        });
+    </script>
+
 </body>
+
 </html>
